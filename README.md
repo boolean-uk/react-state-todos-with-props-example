@@ -1,8 +1,9 @@
-# React + Vite
+# React State Example - Todo List
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Here's single file, monlithic version of the Todo List app written in React. It's based on the code from this example in the slides: [https://codesandbox.io/s/react-state-todo-app-w4nt6](https://codesandbox.io/s/react-state-todo-app-w4nt6)
 
-Currently, two official plugins are available:
+## Getting it to run
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. Clone the repo.
+2. Run `npm install` to install everything.
+3. Run `npm run dev` as normal to make it work.
