@@ -1,6 +1,6 @@
 # React State Example - Todo List
 
-Here's single file, monlithic version of the Todo List app written in React. It's based on the code from this example in the slides: [https://codesandbox.io/s/react-state-todo-app-w4nt6](https://codesandbox.io/s/react-state-todo-app-w4nt6)
+This is the single monolithic todo list app reworked into components using props to pass the state around. This also has Prop Validation added as an example, the library is included as a dependency already so there is no need to run `npm install prop-types --save` to make it work.
 
 ## Getting it to run
 

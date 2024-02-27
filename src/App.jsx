@@ -1,5 +1,10 @@
 import { useState } from "react";
 import "./App.css";
+import Options from "./Components/Options";
+import AddItem from "./Components/AddItem";
+import TodoList from "./Components/TodoList";
+import CompletedTodoList from "./Components/CompletedTodoList";
+
 const initialTodos = [
   {
     text: "Go shopping",
@@ -14,9 +19,9 @@ const initialTodos = [
     completed: false,
   },
 ];
+
 function App() {
   const [todos, setTodos] = useState(initialTodos);
-  const [todoInput, setTodoInput] = useState("");
   const [showCompletedTodos, setShowCompletedTodos] = useState(true);
 
   const addTodo = (text) => {
@@ -25,16 +30,6 @@ function App() {
       return;
     }
     setTodos([...todos, { text, completed: false }]);
-  };
-
-  const handleChange = (e) => {
-    setTodoInput(e.target.value);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    addTodo(todoInput);
-    setTodoInput("");
   };
 
   const removeTodo = (target) => {
@@ -48,95 +43,32 @@ function App() {
     setTodos(updatedTodos);
   };
 
-  const incompleteTodos = todos.filter((todo) => !todo.completed);
-  const completedTodos = todos.filter((todo) => todo.completed);
-
   return (
     <div className="App">
       <main>
-        <section>
-          <h2 className="title">OPTIONS</h2>
-          <label>
-            Show Completed
-            <input
-              className="show-completed"
-              onChange={(e) => setShowCompletedTodos(e.target.checked)}
-              type="checkbox"
-              checked={showCompletedTodos}
-            />
-          </label>
-        </section>
-        <section>
-          <h2 className="title">ADD ITEM</h2>
-          <form className="add-item" onSubmit={handleSubmit}>
-            <input
-              className="text-input"
-              type="text"
-              name="text"
-              required
-              minLength="3"
-              onChange={handleChange}
-              value={todoInput}
-            />
-            <button type="submit">Add</button>
-          </form>
-        </section>
-        <section className="todo-list-section">
-          <h2 className="title">TODO</h2>
-          <ul className="todo-list">
-            {incompleteTodos.map((todo, index) => (
-              <li className="todo" key={index}>
-                <div className="completed-section">
-                  <input
-                    className="completed-checkbox"
-                    type="checkbox"
-                    checked={todo.completed}
-                    value={todo.completed}
-                    onChange={() => toggleCompleted(todo)}
-                  />
-                </div>
-                <div className="text-section">
-                  <p className="text">{todo.text}</p>
-                </div>
-                <div className="button-section">
-                  <button className="delete" onClick={() => removeTodo(todo)}>
-                    🗑
-                  </button>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </section>
-        {showCompletedTodos ? (
-          <section className="completed-list-section">
-            <h2 className="title">COMPLETED</h2>
-            <ul className="completed-list">
-              {completedTodos.map((todo, index) => (
-                <li className="todo" key={index}>
-                  <div className="completed-section">
-                    <input
-                      className="completed-checkbox"
-                      type="checkbox"
-                      checked={todo.completed}
-                      value={todo.completed}
-                      onChange={() => toggleCompleted(todo)}
-                    />
-                  </div>
-                  <div className="text-section">
-                    <p className="text">{todo.text}</p>
-                  </div>
-                  <div className="button-section">
-                    <button className="delete" onClick={() => removeTodo(todo)}>
-                      🗑
-                    </button>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </section>
-        ) : null}
+        <Options
+          showCompletedTodos={showCompletedTodos}
+          setShowCompletedTodos={setShowCompletedTodos}
+        />
+
+        <AddItem addTodo={addTodo} />
+
+        <TodoList
+          todos={todos}
+          toggleCompleted={toggleCompleted}
+          removeTodo={removeTodo}
+        />
+
+        {showCompletedTodos && (
+          <CompletedTodoList
+            todos={todos}
+            toggleCompleted={toggleCompleted}
+            removeTodo={removeTodo}
+          />
+        )}
       </main>
     </div>
   );
 }
+
 export default App;
